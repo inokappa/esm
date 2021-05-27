@@ -19,4 +19,5 @@ Flags:
   -f, --force            Force New deploy.
   -h, --help             help for update
   -s, --service string   ECS Service Name
+  -t, --taskdef string   ECS Task Definition Name
 ```
