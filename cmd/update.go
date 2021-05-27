@@ -6,14 +6,6 @@ import (
 	"os"
 )
 
-var (
-	cluster string
-	service string
-	taskdef string
-	desired int64
-	force   bool
-)
-
 var updateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update ECS Service.",

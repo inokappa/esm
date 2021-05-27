@@ -37,13 +37,6 @@ func (ecsService *ecsService) ServiceUpdate(clusterName string,
 		input.SetDesiredCount(desiredCount)
 	}
 
-	// input := &ecs.UpdateServiceInput{
-	// 	Cluster:            aws.String(clusterName),
-	// 	Service:            aws.String(serviceName),
-	// 	TaskDefinition:     aws.String(taskDefName)
-	// 	DesiredCount:       aws.Int64(desiredCount),
-	// 	ForceNewDeployment: aws.Bool(forceUpdate),
-	// }
 	_, err := ecsService.UpdateService(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
@@ -54,5 +47,26 @@ func (ecsService *ecsService) ServiceUpdate(clusterName string,
 		return false
 	}
 
+	return true
+}
+
+func (ecsService *ecsService) Services(clusterName string) bool {
+
+	input := &ecs.ListServicesInput{
+		Cluster:    aws.String(clusterName),
+		MaxResults: aws.Int64(100),
+	}
+
+	result, err := ecsService.ListServices(input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			fmt.Println(aerr.Error())
+		} else {
+			fmt.Println(err.Error())
+		}
+		return false
+	}
+
+	fmt.Println(result)
 	return true
 }
